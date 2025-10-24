@@ -6,9 +6,9 @@ This project represents part of my **master’s thesis written in Croatian**, ti
 **“Detekcija anomalija u senzorskim podacima vjetroturbina pomoću dubokog učenja”**  
 (*Anomaly Detection in Wind Turbine Sensor Data using Deep Learning*).
 
-The focus of the work is on real-world **SCADA data** from literature, applying modern **feature selection techniques (XGBoost + SHAP)**, and preparing the data for **deep learning-based anomaly detection models**.
+The focus of the work is on **real-world multivariate time series SCADA data** from literature, specifically collected from wind turbines in **Germany**, applying modern **feature selection techniques (XGBoost + SHAP)**, and preparing the data for **deep learning-based anomaly detection models**.
 
-In the experimental part of the thesis, **LSTM Autoencoder** and **Bi-LSTM Autoencoder** models were developed and evaluated for detecting anomalies in **time series sensor data** collected from wind turbines.
+In the experimental part of the thesis, **LSTM Autoencoder** and **Bi-LSTM Autoencoder** models were developed and evaluated for **reconstruction-based anomaly detection** in **multivariate time series sensor data** collected from these wind turbines.
 
 ---
 
@@ -20,10 +20,10 @@ In the experimental part of the thesis, **LSTM Autoencoder** and **Bi-LSTM Autoe
 ---
 
 ## Thesis Repository
-📄 Master’s thesis *(in Croatian)*:  
+Master’s thesis *(in Croatian)*:  
 [https://repozitorij.pmfst.unist.hr/islandora/object/pmfst:2239](https://repozitorij.pmfst.unist.hr/islandora/object/pmfst:2239)
 
-💻 GitHub repository *(in Croatian)*:  
+GitHub repository *(in Croatian)*:  
 [https://github.com/mirkojurisic/diplomski-rad-projekt](https://github.com/mirkojurisic/diplomski-rad-projekt)
 
 ## Dataset
@@ -185,3 +185,55 @@ Below are the hyperparameter configurations used for the **LSTM Autoencoder** an
 | Number of epochs | 15 |
 | Batch size | 256 |
 | Validation split | 0.1 |
+
+## Results — LSTM Autoencoder
+
+### Table 3. LSTM Autoencoder Results (without removing low-variance features)
+
+| Event Subset | Accuracy | Precision | Recall | F1 Score | FAR |
+|--------------|---------|-----------|--------|----------|-----|
+| Event 34     | 93.75%  | 36.36%    | 100%   | 53.33%   | 6.48% |
+| Event 7      | 94.88%  | 60.68%    | 98.56% | 75.11%   | 5.44% |
+| Event 53     | 95.37%  | 54.62%    | 100%   | 70.65%   | 4.90% |
+| Event 27     | 97.12%  | 81.32%    | 100%   | 89.70%   | 3.29% |
+| Event 19     | 94.15%  | 18.28%    | 100%   | 30.91%   | 5.93% |
+| Event 77     | 95.55%  | 70.80%    | 100%   | 82.90%   | 4.99% |
+| **Average**  | **95.14%** | **53.68%** | **99.76%** | **67.10%** | **5.17%** |
+
+### Table 4. LSTM Autoencoder Results (with low-variance feature removal)
+
+| Event Subset | Accuracy | Precision | Recall | F1 Score | FAR |
+|--------------|---------|-----------|--------|----------|-----|
+| Event 34     | 94.97%  | 41.50%    | 100%   | 58.66%   | 5.22% |
+| Event 7      | 97.62%  | 76.70%    | 100%   | 86.81%   | 2.59% |
+| Event 53     | 94.53%  | 50.45%    | 100%   | 67.06%   | 5.80% |
+| Event 27     | 98.36%  | 88.42%    | 100%   | 93.86%   | 1.88% |
+| Event 19     | 96.15%  | 25.39%    | 100%   | 40.50%   | 3.90% |
+| Event 77     | 95.67%  | 71.36%    | 100%   | 83.28%   | 4.85% |
+| **Average**  | **96.22%** | **58.97%** | **100%** | **71.69%** | **4.04%** |
+
+## Results — Bi-LSTM Autoencoder
+
+### Table 5. Bi-LSTM Autoencoder Results (without removing low-variance features)
+
+| Event Subset | Accuracy | Precision | Recall | F1 Score | FAR |
+|--------------|---------|-----------|--------|----------|-----|
+| Event 34     | 94.45%  | 39.13%    | 100%   | 56.25%   | 5.76% |
+| Event 7      | 95.05%  | 61.49%    | 98.56% | 75.74%   | 5.25% |
+| Event 53     | 95.27%  | 54.09%    | 100%   | 70.21%   | 5.01% |
+| Event 27     | 97.63%  | 84.06%    | 100%   | 91.34%   | 2.72% |
+| Event 19     | 94.34%  | 18.77%    | 100%   | 31.61%   | 5.74% |
+| Event 77     | 95.79%  | 71.92%    | 100%   | 83.67%   | 4.72% |
+| **Average**  | **95.42%** | **54.91%** | **99.76%** | **68.14%** | **4.87%** |
+
+### Table 6. Bi-LSTM Autoencoder Results (with low-variance feature removal)
+
+| Event Subset | Accuracy | Precision | Recall | F1 Score | FAR |
+|--------------|---------|-----------|--------|----------|-----|
+| Event 34     | 94.82%  | 40.79%    | 100%   | 57.95%   | 5.37% |
+| Event 7      | 96.64%  | 70.02%    | 100%   | 82.36%   | 3.64% |
+| Event 53     | 95.17%  | 53.58%    | 100%   | 69.77%   | 5.11% |
+| Event 27     | 98.36%  | 88.42%    | 100%   | 93.86%   | 1.88% |
+| Event 19     | 96.98%  | 30.25%    | 100%   | 46.45%   | 3.06% |
+| Event 77     | 95.78%  | 71.87%    | 100%   | 83.63%   | 4.73% |
+| **Average**  | **96.29%** | **59.16%** | **100%** | **72.34%** | **3.96%** |
